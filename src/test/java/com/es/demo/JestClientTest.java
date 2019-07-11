@@ -1,11 +1,8 @@
 package com.es.demo;
 
 import com.es.demo.entity.Article;
-import com.google.gson.GsonBuilder;
 import io.searchbox.client.JestClient;
-import io.searchbox.client.JestClientFactory;
 import io.searchbox.client.JestResult;
-import io.searchbox.client.config.HttpClientConfig;
 import io.searchbox.cluster.Health;
 import io.searchbox.cluster.NodesInfo;
 import io.searchbox.cluster.NodesStats;
@@ -13,9 +10,11 @@ import io.searchbox.core.*;
 import io.searchbox.indices.*;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
-import org.elasticsearch.search.highlight.HighlightBuilder;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -27,8 +26,12 @@ import java.util.*;
  * @date 2019/7/11 15:18
  **/
 @SuppressWarnings("all")
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = DemoApplication.class)
 public class JestClientTest {
 
+    @Autowired
     private JestClient jestClient;
 
     Article article1 = new Article(1, "elasticsearch1", "系统版本：centos 7.4\n" +
@@ -56,11 +59,11 @@ public class JestClientTest {
      * @Author: Lihaitao
      * @Date: 2019/7/11 15:23
      */
-    @Before
+   /* @Before
     public void createJestClient() {
         JestClientFactory factory = new JestClientFactory();
         factory.setHttpClientConfig(new HttpClientConfig
-                .Builder("http://127.0.0.1:9200")
+                .Builder("http://47.99.216.57:9300")
                 .gson(new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create())
                 .multiThreaded(true)
                 .readTimeout(10000)
@@ -68,7 +71,7 @@ public class JestClientTest {
         jestClient = factory.getObject();
 
 
-    }
+    }*/
 
     /**
      * @Description: 创建索引
@@ -119,12 +122,6 @@ public class JestClientTest {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
 
-        HighlightBuilder highlightBuilder = new HighlightBuilder();
-        highlightBuilder.field("title");//高亮title
-        highlightBuilder.field("content");//高亮content
-        highlightBuilder.preTags("<em>").postTags("</em>");//高亮标签
-        highlightBuilder.fragmentSize(200);//高亮内容长度
-        searchSourceBuilder.highlight(highlightBuilder);
         Search search = new Search.Builder(searchSourceBuilder.toString())
                 .addIndex("article")
                 .build();
@@ -212,7 +209,10 @@ public class JestClientTest {
      * @throws Exception
      */
     @Test
-    public void getDocument(String index, String type, String id) throws Exception {
+    public void getDocument() throws Exception {
+        String index = "";
+        String type = "";
+        String id = "";
         Get get = new Get.Builder(index, id).type(type).build();
         JestResult result = jestClient.execute(get);
         Article article = result.getSourceAsObject(Article.class);
@@ -228,7 +228,10 @@ public class JestClientTest {
      * @throws Exception
      */
     @Test
-    public void deleteDocument(String index, String type, String id) throws Exception {
+    public void deleteDocument() throws Exception {
+        String index = "";
+        String type = "";
+        String id = "";
         Delete delete = new Delete.Builder(id).index(index).type(type).build();
         JestResult result = jestClient.execute(delete);
         System.out.println(result.getJsonString());
@@ -244,7 +247,10 @@ public class JestClientTest {
      * @throws Exception
      */
     @Test
-    public void updateDocument(String index, String type, String id) throws Exception {
+    public void updateDocument() throws Exception {
+        String index = "";
+        String type = "";
+        String id = "";
         Article article = new Article();
         article.setId(Integer.parseInt(id));
         article.setTitle("中国3颗卫星拍到阅兵现场高清照");

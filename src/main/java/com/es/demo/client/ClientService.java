@@ -1,3 +1,4 @@
+/*
 package com.es.demo.client;
 
 import com.es.demo.entity.Article;
@@ -7,12 +8,12 @@ import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexResponse;
 import org.elasticsearch.action.admin.indices.flush.FlushRequest;
 import org.elasticsearch.action.admin.indices.flush.FlushResponse;
-import org.elasticsearch.action.admin.indices.optimize.OptimizeRequest;
-import org.elasticsearch.action.admin.indices.optimize.OptimizeResponse;
+//import org.elasticsearch.action.admin.indices.optimize.OptimizeRequest;
+//import org.elasticsearch.action.admin.indices.optimize.OptimizeResponse;
 import org.elasticsearch.action.bulk.BulkItemResponse;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
-import org.elasticsearch.action.count.CountResponse;
+//import org.elasticsearch.action.count.CountResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
@@ -48,11 +49,87 @@ import java.util.Set;
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
+*/
 /**
  * @author LiHaitao
  * @description ClientService:
  * @date 2019/7/11 15:02
- **/
+ * <p>
+ * 创建索引
+ * @param index         索引名称
+ * @param type          索引type
+ * @param sourcecontent 要索引的内容
+ * <p>
+ * bulkIndex
+ * @throws Exception
+ * @param index
+ * @param type
+ * @param id
+ * @throws Exception
+ * <p>
+ * 更新索引  https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-scripting.html
+ * @param index
+ * @param type
+ * @param id
+ * <p>
+ * 更新索引
+ * @param index
+ * @param type
+ * @param id
+ * <p>
+ * 仅仅只删除索引
+ * @param index
+ * @param type
+ * @param id
+ * <p>
+ * 删除查询到的文档
+ * @param index
+ * @param name
+ * @param value
+ * <p>
+ * 删除所有索引
+ * @param indices
+ * <p>
+ * 获取索引信息
+ * @param index
+ * @param type
+ * @param id
+ * <p>
+ * Query Search
+ * @param index
+ * @param type
+ * @param term
+ * @param queryString
+ * <p>
+ * Query Search
+ * @param index
+ * @param type
+ * @param term
+ * @param queryString
+ * @param queryString
+ * @param indices
+ * @param field
+ * @param queryString
+ * <p>
+ * boolean query
+ * @param indices
+ * @param field
+ * @param queryString
+ * <p>
+ * 创建Json字符串格式的索引
+ * <p>
+ * 创建Map类型的索引
+ * <p>
+ * 打印索引信息
+ * @param response
+ * <p>
+ * 序列化Bean的方式创建索引
+ * @throws JsonProcessingException
+ * <p>
+ * 使用Elasticsearch XContentBuilder 创建索引
+ * @throws Exception
+ *//*
+
 @SuppressWarnings("all")
 public class ClientService {
 
@@ -75,24 +152,28 @@ public class ClientService {
     }
 
 
-    /**
-     * 创建索引
-     *
-     * @param index         索引名称
-     * @param type          索引type
-     * @param sourcecontent 要索引的内容
-     */
+    */
+/**
+ * 创建索引
+ *
+ * @param index         索引名称
+ * @param type          索引type
+ * @param sourcecontent 要索引的内容
+ *//*
+
     public static void createIndex(String index, String type, String sourcecontent) {
         Client client = createTransportClient();
         IndexResponse response = client.prepareIndex(index, type).setSource(sourcecontent).execute().actionGet();
         printIndexInfo(response);
     }
 
-    /**
-     * bulkIndex
-     *
-     * @throws Exception
-     */
+    */
+/**
+ * bulkIndex
+ *
+ * @throws Exception
+ *//*
+
     private static void bulkIndex() throws Exception {
         Client client = createTransportClient();
         BulkRequestBuilder bulkRequest = client.prepareBulk();
@@ -130,12 +211,14 @@ public class ClientService {
     }
 
 
-    /**
-     * @param index
-     * @param type
-     * @param id
-     * @throws Exception
-     */
+    */
+/**
+ * @param index
+ * @param type
+ * @param id
+ * @throws Exception
+ *//*
+
     private static void upsertIndex(String index, String type, String id) throws Exception {
         Client client = createTransportClient();
         IndexRequest indexRequest = new IndexRequest(index, type, id)
@@ -167,13 +250,15 @@ public class ClientService {
         System.out.println(_index + "," + _type + "," + _id + "," + _version);
     }
 
-    /**
-     * 更新索引  https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-scripting.html
-     *
-     * @param index
-     * @param type
-     * @param id
-     */
+    */
+/**
+ * 更新索引  https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-scripting.html
+ *
+ * @param index
+ * @param type
+ * @param id
+ *//*
+
     private static void updateIndexByScript(String index, String type, String id) throws Exception {
         Client client = createTransportClient();
         UpdateResponse response = client.prepareUpdate(index, type, id)
@@ -202,13 +287,15 @@ public class ClientService {
         System.out.println(_index + "," + _type + "," + _id + "," + _version);
     }
 
-    /**
-     * 更新索引
-     *
-     * @param index
-     * @param type
-     * @param id
-     */
+    */
+/**
+ * 更新索引
+ *
+ * @param index
+ * @param type
+ * @param id
+ *//*
+
     private static void updateIndexByDoc(String index, String type, String id) throws Exception {
         Client client = createTransportClient();
         UpdateResponse response = client.prepareUpdate(index, type, id)
@@ -235,13 +322,15 @@ public class ClientService {
         System.out.println(_index + "," + _type + "," + _id + "," + _version);
     }
 
-    /**
-     * 仅仅只删除索引
-     *
-     * @param index
-     * @param type
-     * @param id
-     */
+    */
+/**
+ * 仅仅只删除索引
+ *
+ * @param index
+ * @param type
+ * @param id
+ *//*
+
     private static void deleteIndex(String index, String type, String id) {
         Client client = createTransportClient();
         DeleteResponse response = client.prepareDelete(index, type, id)
@@ -273,13 +362,15 @@ public class ClientService {
 
     }
 
-    /**
-     * 删除查询到的文档
-     *
-     * @param index
-     * @param name
-     * @param value
-     */
+    */
+/**
+ * 删除查询到的文档
+ *
+ * @param index
+ * @param name
+ * @param value
+ *//*
+
     private static void scrollSearchDelete(String index, String name, String value) {
         Client client = createTransportClient();
         QueryBuilder qb = termQuery(name, value);
@@ -310,11 +401,13 @@ public class ClientService {
     }
 
 
-    /**
-     * 删除所有索引
-     *
-     * @param indices
-     */
+    */
+/**
+ * 删除所有索引
+ *
+ * @param indices
+ *//*
+
     private static void deleteIndices(String indices) {
         Client client = createTransportClient();
         DeleteIndexRequest deleteIndexRequest = new DeleteIndexRequest(indices);
@@ -329,13 +422,15 @@ public class ClientService {
         }
     }
 
-    /**
-     * 获取索引信息
-     *
-     * @param index
-     * @param type
-     * @param id
-     */
+    */
+/**
+ * 获取索引信息
+ *
+ * @param index
+ * @param type
+ * @param id
+ *//*
+
     private static void getIndex(String index, String type, String id) {
         Client client = createTransportClient();
         GetResponse response = client.prepareGet(index, type, id)
@@ -357,14 +452,16 @@ public class ClientService {
         System.out.println(_index + "," + _type + "," + _id + "," + _version);
     }
 
-    /**
-     * Query Search
-     *
-     * @param index
-     * @param type
-     * @param term
-     * @param queryString
-     */
+    */
+/**
+ * Query Search
+ *
+ * @param index
+ * @param type
+ * @param term
+ * @param queryString
+ *//*
+
     private static void querySearch(String index, String type, String term, String queryString) {
         Client client = createTransportClient();
         SearchResponse response = client.prepareSearch(index)
@@ -407,14 +504,16 @@ public class ClientService {
         }
     }
 
-    /**
-     * Query Search
-     *
-     * @param index
-     * @param type
-     * @param term
-     * @param queryString
-     */
+    */
+/**
+ * Query Search
+ *
+ * @param index
+ * @param type
+ * @param term
+ * @param queryString
+ *//*
+
     private static void scrollSearch(String index, String type, String term, String queryString) {
         Client client = createTransportClient();
         SearchResponse scrollResp = client.prepareSearch(index)
@@ -453,9 +552,11 @@ public class ClientService {
     }
 
 
-    /**
-     * @param queryString
-     */
+    */
+/**
+ * @param queryString
+ *//*
+
     private static void multiSearch(String queryString) {
         Client client = createTransportClient();
         SearchRequestBuilder srb1 = client.prepareSearch()
@@ -489,11 +590,13 @@ public class ClientService {
         }
     }
 
-    /**
-     * @param indices
-     * @param field
-     * @param queryString
-     */
+    */
+/**
+ * @param indices
+ * @param field
+ * @param queryString
+ *//*
+
     private static void count(String indices, String field, String queryString) {
         Client client = createTransportClient();
         CountResponse response = client.prepareCount(indices)
@@ -530,10 +633,10 @@ public class ClientService {
         RegexpQueryBuilder regexpQuery = QueryBuilders.regexpQuery("content", "健健|康康|圆圆|平平|安安|女神");
         SearchResponse searchResponse = client.prepareSearch("article")
                 .setQuery(regexpQuery)
-                .addHighlightedField("content")
-                .setHighlighterPreTags("<em>")
-                .setHighlighterPostTags("</em>")
-                .setHighlighterFragmentSize(250)//设置高亮内容长度
+//                .addHighlightedField("content")
+//                .setHighlighterPreTags("<em>")
+//                .setHighlighterPostTags("</em>")
+//                .setHighlighterFragmentSize(250)//设置高亮内容长度
                 // 设置查询数据的位置,分页用
                 .setFrom(0)
                 // 设置查询结果集的最大条数
@@ -680,10 +783,10 @@ public class ClientService {
         SearchResponse searchResponse = client.prepareSearch("article")
                 .setQuery(rangeQuery)
                 .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
-                .addHighlightedField("content")
-                .setHighlighterPreTags("<em>")
-                .setHighlighterPostTags("</em>")
-                .setHighlighterFragmentSize(250)//设置高亮内容长度
+//                .addHighlightedField("content")
+//                .setHighlighterPreTags("<em>")
+//                .setHighlighterPostTags("</em>")
+//                .setHighlighterFragmentSize(250)//设置高亮内容长度
                 // 设置查询数据的位置,分页用
                 .setFrom(0)
                 // 设置查询结果集的最大条数
@@ -698,8 +801,8 @@ public class ClientService {
         SearchHit[] hits = searchHits.getHits();
         for (SearchHit searchHit : hits) {
             //获取高亮的字段
-            Map<String, HighlightField> highlightFields = searchHit.getHighlightFields();
-            HighlightField highlightField = highlightFields.get("content");
+//            Map<String, HighlightField> highlightFields = searchHit.getHighlightFields();
+//            HighlightField highlightField = highlightFields.get("content");
             System.out.println("高亮字段:" + highlightField.getName() + "\n高亮部分内容:" + highlightField.getFragments()[0].string());
             Map<String, Object> sourceAsMap = searchHit.sourceAsMap();
             Set<String> keySet = sourceAsMap.keySet();
@@ -881,9 +984,11 @@ public class ClientService {
     }
 
 
-    /**
-     * boolean query
-     */
+    */
+/**
+ * boolean query
+ *//*
+
     private static void booleanQuery() {
         Client client = createTransportClient();
         QueryBuilder queryBuilder = QueryBuilders
@@ -928,11 +1033,13 @@ public class ClientService {
     }
 
 
-    /**
-     * @param indices
-     * @param field
-     * @param queryString
-     */
+    */
+/**
+ * @param indices
+ * @param field
+ * @param queryString
+ *//*
+
     private static void matchQuery(String indices, String field, String queryString) {
         Client client = createTransportClient();
         SearchResponse searchResponse = client.prepareSearch(indices)
@@ -954,9 +1061,11 @@ public class ClientService {
     }
 
 
-    /**
-     * 创建Json字符串格式的索引
-     */
+    */
+/**
+ * 创建Json字符串格式的索引
+ *//*
+
     private static void creatJsonStringIndex() {
         String json = "{" +
                 "\"name\":\"深入浅出Node.js\"," +
@@ -968,9 +1077,11 @@ public class ClientService {
         createIndex("book", "book", json);
     }
 
-    /**
-     * 创建Map类型的索引
-     */
+    */
+/**
+ * 创建Map类型的索引
+ *//*
+
     private static void creatMapIndex() {
         Map<String, Object> json = new HashMap<String, Object>();
         json.put("name", "Go Web编程");
@@ -983,11 +1094,13 @@ public class ClientService {
         printIndexInfo(response);
     }
 
-    /**
-     * 打印索引信息
-     *
-     * @param response
-     */
+    */
+/**
+ * 打印索引信息
+ *
+ * @param response
+ *//*
+
     private static void printIndexInfo(IndexResponse response) {
         System.out.println("****************index ***********************");
         // Index name
@@ -1001,11 +1114,13 @@ public class ClientService {
         System.out.println(_index + "," + _type + "," + _id + "," + _version);
     }
 
-    /**
-     * 序列化Bean的方式创建索引
-     *
-     * @throws JsonProcessingException
-     */
+    */
+/**
+ * 序列化Bean的方式创建索引
+ *
+ * @throws JsonProcessingException
+ *//*
+
     private static void creatBeanIndex() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         Article article = new Article(1, "高圆圆身上淤青 遭家暴还是玩SM遭性虐？", "近日，有媒体拍到高圆圆身上的淤青，腿上还有两块伤疤，引起不少人猜测是遭受家暴。" +
@@ -1023,11 +1138,13 @@ public class ClientService {
     }
 
 
-    /**
-     * 使用Elasticsearch XContentBuilder 创建索引
-     *
-     * @throws Exception
-     */
+    */
+/**
+ * 使用Elasticsearch XContentBuilder 创建索引
+ *
+ * @throws Exception
+ *//*
+
     private static void useXContentBuilderCreatIndex() throws Exception {
         XContentBuilder builder = jsonBuilder()
                 .startObject()
@@ -1043,3 +1160,4 @@ public class ClientService {
 
 
 }
+*/
